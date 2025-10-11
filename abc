@@ -44,8 +44,8 @@ pipeline {
               echo'deploying'
               deploy adapters:[
                        tomcat9(
-                         credentialid:
-                         url:
+                         credentialid:'tomcat1',
+                         url:'http://15.207.98.221:8080/'
                   )
                 ],
                 contextPath:'/qaenv',
