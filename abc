@@ -32,6 +32,13 @@ pipeline {
 
            }
       }
+       stage('package'){
+         steps{
+             echo'packaging'
+             sh'mvn package'
+             archiveArtifacts artifacts:'**/*.war',fingerprint:true
+          }
+      }
       
         
     }
