@@ -39,7 +39,20 @@ pipeline {
              archiveArtifacts artifacts:'**/*.war',fingerprint:true
           }
       }
-      
+       stage('deploying to QA')
+          steps{
+              echo'deploying'
+              deploy adapters:[
+                       tomcat9(
+                         credentialid:
+                         url:
+                  )
+                ],
+                contextPath:'/qaenv',
+                war:'**/*.war'
+        }
+      }
+              
         
     }
 }
