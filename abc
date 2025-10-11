@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "mvn"
+    }
+
+    stages {
+        stage('clone'){
+            steps{
+                echo'cloning'
+                git branch:'master',url:'https://github.com/abhinraj-hub/DevOpsClassCodes.git'
+            }
+        }
+        stage('compile'){
+            steps{
+                echo'compiling'
+                sh'mvn clean compile'
+            }
+        }
+        stage('code review'){
+            steps{
+                echo'running pmd'
+                sh'mvn pmd:pmd'
+            }
+        }
+        stage('unit test'){
+           steps{
+               echo'testing'
+               sh'mvn test'
+
+           }
+      }
+      stage('package'){
+         steps{
+             echo'packaging'
+             sh'mvn package'
+             archiveArtifacts artifacts:'**/*.war',fingerprint:true
+          }
+      }
+        
+    }
+}
